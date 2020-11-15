@@ -1,14 +1,23 @@
 using ModelingToolkit
 
 # outer droop control for virtual intertia
-@parameters t K_P K_Q P_ref Q_ref ω_ref V_ref
-@variables u_V u_ϕ(t) p_m(t) q_m(t)
+@parameters t K_P P_ref  ω_ref 
+@variables  u_ϕ(t) p_m(t)
 @derivatives D'~t
 
-virtual_intertia_droop = [
+virtual_intertia_active_power_droop_control = [
     u_ϕ ~ -K_P*(p_m-P_ref) + ω_ref, # output is the droop frequency ω
+    ]
+
+# outer droop control for virtual intertia
+@parameters t K_Q Q_ref  V_ref
+@variables u_V q_m(t)
+@derivatives D'~t
+
+virtual_intertia_reactive_power_droop_control = [
     u_V ~ -K_Q*(q_m-Q_ref) + V_ref # output is the droop voltage v
     ]
+
 
     
 # component active power filter
@@ -34,15 +43,15 @@ filter_reactive_power = [
 @variables v(t) u_V(t)
 @derivatives D'~t
     
-filter_reactive_power = [
+integral_controller_voltage = [
     D(v) ~ 1/τ_V* (-v+u_V),
     ]
 
 # integrator for frequency
 @parameters t
-@variables ϕ(t) u_ϕ(t)
+@variables ϕ(t) ω(t)
 @derivatives D'~t
     
-filter_reactive_power = [
-    D(ϕ) ~ u_ϕ
+integrator_frequency = [
+    D(ϕ) ~ ω
     ]
