@@ -1,5 +1,19 @@
 using ModelingToolkit
 
+
+# grid definition
+@variables t, u_r(t), u_i(t)
+@parameters i_r, i_i
+@derivatives D'~t
+
+slack = [
+    D(u_r) ~ -ω*1*sin(ϕ),
+    D(u_i) ~  ω*1*cos(ϕ)
+    ]
+    
+aliases = [p ~ u_r*i_r + u_i*i_i]
+
+
 # outer droop control for virtual intertia
 @parameters t K_P P_ref  ω_ref 
 @variables  u_ϕ(t) p_m(t)
