@@ -2,7 +2,7 @@ using ModelingToolkit
 
 
 # grid definition
-@variables t, u_r(t), u_i(t)
+@variables t, u_r(t), u_i(t),ω(t),ϕ(t),p(t)
 @parameters i_r, i_i
 @derivatives D'~t
 

@@ -21,8 +21,6 @@ connected = ODESystem([],t, observed = connections, systems=[active_droop,freq_i
 # TODO: check why this is not working
 #flattened_system = ModelingToolkit.flatten(connected)
 #aliased_flattened_system = alias_elimination(connected)
-
-
 u0 = [active_droop.p_m => 1.0,
       active_droop.u_ϕ => 0.0,
       freq_integrator.ϕ => 0.0,
