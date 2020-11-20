@@ -1,3 +1,5 @@
+#as in https://github.com/SciML/ModelingToolkit.jl/blob/master/test/reduction.jl
+
 using ModelingToolkit
 const MTK = ModelingToolkit
 include("src/components.jl")
