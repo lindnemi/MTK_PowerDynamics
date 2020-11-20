@@ -18,6 +18,7 @@ kuramoto2 = ODESystem(eqs2, pins=[c], name=:kuramoto2)
 
 connections = [ kuramoto2.c ~ kuramoto1.θ; kuramoto1.c ~ kuramoto2.θ]
 
+# It's a bit unintuitive that the first argument has to be an Array of Equations
 sys = ODESystem(Array{Equation, 1}(), t, [], [], observed = connections, systems=[kuramoto1, kuramoto2])
 
 flattened_system = ModelingToolkit.flatten(sys) # Turns the composite system into one
